@@ -1,4 +1,5 @@
-U.S.GoAnywhereMaskON
+# U.S.GoAnywhereMaskON
+
 Final Project — This is the final project repo for group of Haoheng Tang and ZJ Zhou.
 
 The main idea of this project is to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential functions:
