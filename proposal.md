@@ -12,7 +12,7 @@ The main idea of this project is to provide users with a COVID-19 special versio
 - one-click COVID-19 Information available at national, state, county levels - note that the zip code level info. is only for Philadelphia city (as a miniature).
 - navigation in multiple transportation modes with list of amenities close to user's input destination location.
 
-We would to have the user acknowledge the risk of traveling to a specific place prior to his/her journey. 
+We would to have the user acknowledge the risk of traveling to a specific place prior to a journey. 
 
 **Primary version**:
   - user-interactive covid-19 test results at multiple scales (pop-up window when clicking on a point on the map, zoom when clicking, etc.)
