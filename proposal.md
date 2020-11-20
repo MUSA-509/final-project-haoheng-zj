@@ -13,10 +13,12 @@ The main idea of this project is to provide users with a COVID-19 special versio
 - navigation in multiple transportation modes with list of amenities close to user's input destination location.
 
 We would to have the user acknowledge the risk of traveling to a specific place prior to his/her journey. 
-- primary version:
+
+**Primary version**:
   - user-interactive covid-19 test results at multiple scales (pop-up window when clicking on a point on the map, zoom when clicking, etc.)
   - an app that features covid-19 risk assessment, amenities search, 3-in-1 (driving, cycling, and walking) navigation with map, routes, and detailed instructions (for Philadelphia city only).
-- advanced version (if applicable, depending on actual progress)
+  
+**Advanced version** (if applicable, depending on actual progress):
   - extend the coverage of the navigation map to larger regions, as well as interactive points of interest inside the navigation map to provide more information and fast-response navigation to faciliate the path finding process. 
 
 ## Data Sources
