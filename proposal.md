@@ -6,10 +6,18 @@ MUSA 509: Geospatial Cloud Computing & Visualization
 
 ## Abstract
 
-*PhillyGoAnywhereMaskON* 
+*U.S.GoAnywhereMaskON* 
 
-What features are necessary for a map/navigation app to enhance user experience? Different users and application scenarios may generate a variety of demand for interactive elements in the app. Based on our experience and experimenting with existing map/navigation apps and open source platforms, we decided to build an app that features covid-19 risk assessment, amenities search, 3-in-1 (driving, cycling, and walking) navigation with map, routes, and detailed instructions.
-Apart from the user typing input and clickable input features, we also would like to include interactive points of interest inside the navigation map to provide more information and fast-response navigation to faciliate the path finding process. The current functions only include Philadelphia-based local information (zip code, covid tests). We intended to upgrade it with cloud-hosted databased of zip code and covid test results for broader usage at national level.
+The main idea of this project is to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential functions:
+- one-click COVID-19 Information available at national, state, county levels - note that the zip code level info. is only for Philadelphia city (as a miniature).
+- navigation in multiple transportation modes with list of amenities close to user's input destination location.
+
+We would to have the user acknowledge the risk of traveling to a specific place prior to his/her journey. 
+- primary version:
+  - user-interactive covid-19 test results at multiple scales (pop-up window when clicking on a point on the map, zoom when clicking, etc.)
+  - an app that features covid-19 risk assessment, amenities search, 3-in-1 (driving, cycling, and walking) navigation with map, routes, and detailed instructions (for Philadelphia city only).
+- advanced version (if applicable, depending on actual progress)
+  - extend the coverage of the navigation map to larger regions, as well as interactive points of interest inside the navigation map to provide more information and fast-response navigation to faciliate the path finding process. 
 
 ## Data Sources
 
@@ -27,5 +35,9 @@ Navigation
 
 ## Wireframe
 
-(Will be uploaded to the project repository and linked)
+![avatar](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.jpg)
+
+Available at [wireframe.jpg](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.jpg). 
+
+Or you can access [wifeframe.ai](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.ai) for an editable version.
 
