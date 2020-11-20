@@ -6,4 +6,5 @@ The main idea of this project is to provide users with a COVID-19 special versio
 - navigation in multiple transportation modes with list of amenities close to user's input destination location
 
 A proposal for this project is available at [proposal.md](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/proposal.md)
+
 Please refers to [wireframe.jpg](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.jpg) to see the wireframe of this project outcome (primary version).
