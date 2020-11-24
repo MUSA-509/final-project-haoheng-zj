@@ -28,15 +28,14 @@ Datasets of covid-test results for every zip code in Philadelphia
 
 - Access: Yes. Data hosted in class database.
 - Size of Dataset: 48 rows x 4 columns
-- How to host: PGAdmin
-
+- How to host: AWS
 
 United States COVID-19 cases and deaths by state over time
 
 - Access: Yes. Already have .csv file downloaded from Data.CDC.gov.
           API Endpoint: https://data.cdc.gov/resource/9mfq-cb36.json
 - Size of Dataset: 18061 rows x 15 columns
-- How to host: PGAdmin
+- How to host: AWS
 
 
 Provisional COVID-19 death counts in the United States by county
@@ -44,7 +43,7 @@ Provisional COVID-19 death counts in the United States by county
 - Access: Yes. Already have .csv file downloaded from Data.CDC.gov.
           API Endpoint: https://data.cdc.gov/resource/kn79-hsxy.json
 - Size of Dataset: 1346 rows x 8 columns
-- How to host: PGAdmin
+- How to host: AWS
 
 OpenStreetMap (Amenities)
 
@@ -62,4 +61,4 @@ Navigation
 
 Available at [wireframe.jpg](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.jpg). 
 
-Or you can access [wifeframe.ai](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.ai) for an editable version.
+Or you can access [wireframe.ai](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.ai) for an editable version.
