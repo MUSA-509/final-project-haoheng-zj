@@ -1,0 +1,40 @@
+<!-- <form action="{{ url_for('dest_info') }}" onsubmit="return sumbit_sure()" method="get" > -->
+  <form action="{{ url_for('dest_info') }}" method="get" >
+  <div>
+    <label for="address_text">Enter your destination address/name</label>
+    <input type="text" class="u-full-width" name="address_text" id="your-name" style="width: 90%;">
+      <div>
+        <label for="pre-selected-addresses">Or... select one of the following</label>
+        <select name="address_dropdown" id="pre-selected-addresses" style="width: 90%;">
+          <option disabled selected value> -- select an option -- </option>
+          <option value="Meyerson Hall, University of Pennsylvania">Meyerson Hall, University of Pennsylvania</option>
+          <option value="Franklin Institute">Franklin Institute</option>
+          <option value="Drexel University">Drexel University</option>
+          <option value="Frankford Transportation Center">Frankford Transportation Center</option>
+<!--           <option value="Irkutsk, Russia">Irkutsk, Russia</option>
+          <option value="Utqiagvik, Alaska">Utqiagvik, Alaska</option>
+          <option value="Giant's Causeway, Northern Ireland">Giant's Causeway, Northern Ireland</option>
+          <option value="Temple of Heaven, Beijing, China">Temple of Heaven, Beijing, China</option>
+          <option value="Hasankeyf, Turkey">Hasankeyf, Turkey</option>
+          <option value="1600 Pennsylvania Avenue NW, Washington DC">1600 Pennsylvania Avenue NW, Washington DC</option> -->
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="button-primary">
+    {% if request.endpoint == 'dest_info' %}
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+    {% endif %}
+<!--   <script language="javascript">
+    function sumbit_sure(){
+      var gnl=confirm("Press OK to view your destination info.\n\nHowever, we *STRONGLY RECOMMEND YOU* click on Cancel to return to the main page to check the current NATION-WIDE COVID INFO before you go.");
+      if (gnl==true){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  </script> -->
+</form>
+
+

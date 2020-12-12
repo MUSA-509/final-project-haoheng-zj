@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Destination</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/favicon.png') }}">
+
+  <!-- Mapbox GL JS Library & CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css" rel="stylesheet" />
+<style>
+    body { margin: 0; padding: 0; }
+    html, body {
+          height: 100%;
+    }
+    .full-height {
+          height: 100%;
+    }
+    .section, .row {
+      height: 100%;
+    }
+/*    #menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    }*/
+</style>
+</head>
+
+<body>
+  <div class="section full-height">
+    <div class="row">
+      <div class="Three columns full-height" style="border-right: 1px solid black; padding: 12px; margin: 5px; overflow-y: scroll;">
+        <h4>Here's your destination info.</h4>
+        <p><b>Wear Your Mask Once You Leave Your Home!</b></br>Only Go If Necessary!</p>
+        <p>The current time is <b><span style='color: #3A6BA5;'>{{  curr_time  }}</span></b></p>
+        <p>You entered: <b>{{ address }}</b>. </br>This address is at: ({{ lat }}, {{ lng }}).</p>
+        {% if distance_from_ori %}
+        <p> 
+          <a href="{{ url_for('dest_info', address_text='Philadelphia_City_Hall') }}">
+            Philadelphia City Hall
+          </a>
+          is {{ distance_from_ori }} kilometers away.
+        </p>
+        {% endif %}
+        {% if error_message %}
+        <p class="error_message">{{ error_message }}</p>
+        {% else %}
+        <p>
+          Within your destination zipcode <i>{{  zip_code  }}</i>,
+          <ul>
+<!--             <li><b style='color: #00207F;'>Test negative rate: {{num_neg_per}}</b></li> -->
+            <li><b style='color: #D80525;'>Test positive rate: {{  num_pos_per  }}% (overall tested)</b></li>
+          </ul>
+        </p>
+        <p>Please see the following table for <b>nearby testing sites</b> of your destination.</p>
+        <table>
+            <tr>
+              <th>Test Site</th>
+              <th>Address</th>
+              <th>Distance</th>
+            </tr>
+            <tr>
+                <td>{{  test_sites_1[0]  }}</td>
+                <td>{{  test_sites_1[1]  }}</td>
+                <td>{{  test_sites_1[2]/1000  }}km</td>
+            </tr>
+            <tr>
+                <td>{{  test_sites_2[0]  }}</td>
+                <td>{{  test_sites_2[1]  }}</td>
+                <td>{{  test_sites_2[2]/1000  }}km</td>
+            </tr>
+            <tr>
+                <td>{{  test_sites_3[0]  }}</td>
+                <td>{{  test_sites_3[1]  }}</td>
+                <td>{{  test_sites_3[2]/1000  }}km</td>
+            </tr>
+
+        </table>
+
+        <h4>Search for another destination?</h4>
+        {% endif %}
+        {% include 'userinput.html' %}
+        <hr>
+        <p>Dest-Info is a Flask App with the following workflow:</p>
+        <ol>
+            <li>User data entered in a form</li>
+            <li>Form data submitted to API backend</li>
+            <li>API internally uses Mapbox Geocoding API to find lng/lat of user-specified destination location</li>
+            <li>Backend spatial query is run to check if the input location is inside Philadelphia.</li>
+            <li>For Philadelphia locations, backend sql queries of lng/lat with covid-info datasets stored in RDS, the app returns covid info. & testing sites info at zip-code level associated with the user-specified destination.</li>
+            <li>The input destination location is rendered on a map, with navigation instruction and routes from the default starting location (Philadelphia City Hall) displayed </li>
+            <p></br> Datasource: <a href="opendataphilly.org">Open Data Philly</p>
+
+        </ol>
+      </div>
+    </div>
+  </div>
+  {{ html_map | safe }}
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>
