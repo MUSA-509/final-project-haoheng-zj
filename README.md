@@ -5,3 +5,6 @@ Final Project — This is the final project repo for group of Haoheng Tang and Z
 A proposal for this project is available at [proposal.md](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/proposal.md)
 
 Please refers to [wireframe.jpg](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/wireframe.jpg) to see the wireframe of this project outcome (primary version).
+
+Here presents the architecture diagram of our web application:
+![arch.diagram](https://github.com/MUSA-509/final-project-haoheng-zj/blob/main/intro/architecture_diagram.png)
