@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Covid Cases Statistics</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/head-side-mask-solid.svg') }}">
+
+  <!-- Mapbox GL JS Library & CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<script type="text/javascript" function iframeAutoFit(iframeObj){ 
+    setTimeout(function(){
+        if(!iframeObj) return;
+        iframeObj.height=(iframeObj.Document?iframeObj.Document.body.scrollHeight:iframeObj.contentDocument.body.offsetHeight); 
+    },0) 
+}></script>
+
+
+
+<style>
+    body { margin: 0; padding: 0; }
+    html, body {
+          height: 100%;
+    }
+    .full-height {
+          height: 100%;
+    }
+    .full-width {
+          width: 100%;
+    }
+    .section, .row {
+      height: 100%;
+    }
+    *{
+      background-color: #594A57 
+    }
+    #map { position: relative; width: 100%; height: 100%;}
+    #menu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #fff;
+        padding: 10px;
+        font-family: 'Open Sans', sans-serif;
+    }
+
+</style>
+</head>
+
+
+
+<body>
+  <header style="background-color: #E23E57; display: flex; align-items: bottom">
+    <a href="{{ url_for('index') }}">
+      <image title='Back to home' src='./static/images/head-side-mask-solid2.svg' style="display:block;width:35px; background-color: transparent; margin: 0px; padding-left: 24px; padding-top: 19px "/>
+   </a>
+     <h5 style="color: #f4f4f4; background-color: transparent; padding-left: 52px; padding-top: 23px">U.S.GOAnywhereMaskON</h5>
+  </header>
+  <div class="full width"> 
+  </div>
+  <div class="section full-height">
+    <div class="row">
+      <div class="three columns full-height" style="border-right: 0px solid black; padding: 26px; background-color: #594A57">
+          <h2 style="color: #f4f4f4">Reported Covid-19 cases by zip code</h2>
+        <p style="color: #959595">U.S.GOAnywhereMaskOn provides the following information about Covid-19 tests for you. </p>
+        <ol>
+          <a href="{{ url_for('covid_state') }}">
+            <li>Reported Covid-19 cases by state in the U.S.</li>
+          </a>
+          <a href="{{ url_for('covid_county') }}">
+            <li>Reported Covid-19 cases by county in Pennsylvania</li>
+          </a>
+            <li style="color: #959595">Reported Covid-19 cases by zip code in Philadelphia</li>
+        <p style="color: #959595">Click on the interactive map and look for a place to go!<p>
+        </ol>
+          <h3 style="color: #f4f4f4">Search for a place to go!</h3>
+          {% include 'userinput.html' %}
+      </div>
+      <div class="nine columns u-max-full-width full-height">
+        <div id="map" style="margin: 0px;" ><iframe  id="test"  width="100%"  height="100%"  scrolling="no" 
+  iframeAutoFit(document.getElementById('test')); frameborder="0"  src="{{ url_for('map_zip') }}"></iframe></div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

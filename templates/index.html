@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>GOMaskOn</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+  <!-- CSS
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/skeleton.css') }}">
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <!-- Favicon
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/head-side-mask-solid.svg') }}">
+
+</head>
+<body style='background-color: #594A57'>
+  <div class="section hero" style="background-color: #E23E57;" >
+    <div class="container" >
+      <div class="row" align='center'>
+
+        <h1 style='color: #f4f4f4'><b>
+          <image src='./static/images/head-side-mask-solid2.svg' style="display:inline-flex;width:70px;height:45px; margin-top: 40px; color: #f4f4f4">U.S.GOAnywhereMaskON</image></b></h1>
+        <p style='color: #f4f4f4'><b><font size="4">A Philadelphia-adapted Miniature Version</font></b></br><i>(local info. available for Philadelphia Addresses ONLY)</i></p>
+      </div>
+    </div>
+  </div>
+  <div class="section full-height" style='background-color: #594A57'>
+    <div class="container full-height">
+      <div class="row">
+        <div class="Two columns"style='margin-top: 40px;'>
+          {% include 'userinput.html' %}
+        </div>
+        <div class="Two columns">
+          <p  style='color: #f4f4f4'><strong>As of 2020/12/15, at least <strong><font size="6"color="#f47983">308,000</font></strong> people have died from coronavirus in the U.S.</br>
+            At least <strong><font size="6"color="9370DB">16,800,000</font></strong> cases have been reported. Wear Your Mask Once You Leave Your Home!</strong></p>
+            <hr>
+            <p  style='color: #f4f4f4'>
+              This web app is designed to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential parts:
+            <ul style='color: #f4f4f4'>
+                <li>User-interactive covid-19 cases visualization at state/county scales (Via Button: "VIEW NATION-WIDE COVID INFO")</li>
+                <li>Destination info (covid, testing sites, navigation, etc.) per user-specified loc (Per user input and Button: "SUBMIT")</li>
+            </ul>
+            </p>
+            <p>
+            </ul>
+            <hr> <b style='color: #f4f4f4'>Data Sources: </b> <a href="https://data.cdc.gov/Case-Surveillance/United-States-COVID-19-Cases-and-Deaths-by-State-o/9mfq-cb36">Center for Disease Control and Prevention</a>, <a href="https://www.opendataphilly.org/dataset/covid-cases">Open Data Philly</a>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+
+</html>

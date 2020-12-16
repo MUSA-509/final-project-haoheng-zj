@@ -1,0 +1,82 @@
+<! --
+  This code was adapted from:
+  https://docs.mapbox.com/mapbox-gl-js/example/setstyle/
+  and
+  https://docs.mapbox.com/mapbox-gl-js/example/add-a-marker/
+  -->
+
+<style>
+    #instructions {
+      position: absolute;
+      width: 20%;
+      height: 20%;
+      right:0;
+      top:80;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.9);
+      overflow-y: scroll;
+      font-family: sans-serif;
+      font-size: 0.8em;
+      line-height: 2em;
+    }
+    .duration {
+      font-size: 2em;
+    }
+
+</style>
+
+<div id="instructions"style="overflow-y: scroll;"></div>
+
+<script>
+    geojson = {{ geojson_str|safe }};
+    mapboxgl.accessToken = '{{ mapbox_token }}';
+
+    var map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [{{ ((dest_lng+ori_lng)/2) }}, {{ ((dest_lat+ori_lat)/2) }}],
+        zoom: 13
+    });
+    var marker1 = new mapboxgl.Marker()
+      .setLngLat([{{ dest_lng }}, {{ dest_lat }}])
+      .addTo(map);
+
+    var marker2 = new mapboxgl.Marker()
+      .setLngLat([{{ ori_lng }}, {{ ori_lat }}])
+      .addTo(map);
+
+    // Get map bounds
+    var coordinates = geojson.features[0].geometry.coordinates;
+    var bounds = coordinates.reduce(function (bounds, coord) {
+            return bounds.extend(coord);
+        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+     
+    map.fitBounds(bounds, {
+            padding: 150
+        });
+    map.on('load', function () {
+        map.addSource('route', {
+            'type': 'geojson',
+            'data': geojson
+        });
+        map.addLayer({
+            'id': 'route',
+            'type': 'line',
+            'source': 'route',
+            'layout': {
+                'line-join': 'round',
+                'line-cap': 'round'
+            },
+            'paint': {
+                'line-color': '#6A5ACD',
+                'line-width': 7
+            }
+        });
+    });
+    address="{{ address|safe }}"
+    instr="{{ instr|safe }}";
+    // start_place="{{start_place}}";
+    dir_duration={{ dir_duration|safe }};
+    var instructions = document.getElementById('instructions');
+    instructions.innerHTML = '<br><span class="duration"><strong>Trip duration: ' + Math.floor(dir_duration / 60) + ' min </strong>'+' 🚗 </span></br>' + '</br>From Philadelphia City Hall to '+'<mark>'+address+'</mark></br>' + instr
+</script>
