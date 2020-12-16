@@ -6,8 +6,8 @@ The project is live on http://usgoanywheremaskon-env.eba-pn88bgvn.us-east-1.elas
 
 This web app is designed to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential parts:
 
-User-interactive covid-19 cases visualization at state/county scales (Via Button: "VIEW NATION-WIDE COVID INFO")
-Destination info (covid, testing sites, navigation, etc.) per user-specified loc (Per user input and Button: "SUBMIT")
+- User-interactive covid-19 cases visualization at state/county scales (Via Button: "VIEW NATION-WIDE COVID INFO")
+- Destination info (covid, testing sites, navigation, etc.) per user-specified loc (Per user input and Button: "SUBMIT")
 
 ---
 
