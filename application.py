@@ -8,7 +8,7 @@ from sqlalchemy import create_engine, String, Integer
 from sqlalchemy.sql import text, bindparam
 import geopandas as gpd
 from shapely.geometry import shape
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 try:
     from geopy import distance
@@ -52,7 +52,8 @@ engine = get_sql_engine()
 @application.route("/")
 def index():
     """User input page"""
-    return Response(render_template("index.html"), 200, mimetype="text/html")
+    covidStats = get_national_covid_stats("12/20/2020")
+    return Response(render_template("index.html", tot_cases=covidStats[0], tot_death=covidStats[1]), 200, mimetype="text/html")
 
 
 @application.route("/dest_info")
@@ -65,7 +66,6 @@ def dest_info():
         geocoded = geocoding(address).json()
 
         # check if the geocoding results contain 'features'
-        # if "features" in geocoding(address).json():
         if geocoded["features"]:
             lng, lat = geocoded["features"][0]["geometry"]["coordinates"]
         else:
@@ -87,18 +87,24 @@ def dest_info():
 
     test_sites = get_nearby_test_sites(lng, lat)
    
-    dir_result = get_direction(PHL_CITY_HALL_LNG, PHL_CITY_HALL_LAT, lng, lat)
-    geojson_str = dir_result[0]
-    listToStr = dir_result[1]
-    dir_data = dir_result[2] 
-    dir_duration = dir_result[3]
+    directions_resp = get_direction(PHL_CITY_HALL_LNG, PHL_CITY_HALL_LAT, lng, lat).json()
+
+    if directions_resp["code"] == 'Ok':
+        route_info = get_route(directions_resp)
+
+    else:
+        error_message = (f"Sorry we cannot retrieve the directions data to your destination ({address}). MapBox Direction API says 'Route exceeds maximum distance limitation.' Here we show the directions to Meyerson Hall. Can you specify another one or choose one from the drop-down menu?")
+        directions_resp_Meyerson = get_direction(PHL_CITY_HALL_LNG, PHL_CITY_HALL_LAT, MEYERSON_LNG, MEYERSON_LAT).json()
+        route_info = get_route(directions_resp_Meyerson)
+        address = 'Meyerson Hall, University of Pennsylvania'
+
 
     html_map = render_template(
         "destination_info.html",
         mapbox_token=MAPBOX_TOKEN,
         curr_time=curr_time,num_pos_per=num_pos_per,zip_code=zip_code,
         test_sites = test_sites,
-        # test_sites_1=test_sites[0], test_sites_2=test_sites[1], test_sites_3=test_sites[2],
+
         error_message=error_message,
         address=address,
         distance_from_ori=distance_from(lng, lat),
@@ -111,12 +117,13 @@ def dest_info():
             "point_map.html", 
             dest_lat=lat, dest_lng=lng,
             ori_lat=PHL_CITY_HALL_LAT, ori_lng=PHL_CITY_HALL_LNG, 
-            geojson_str=geojson_str, instr=listToStr, dir_data=dir_data, dir_duration=dir_duration,
+            geojson_str=route_info[0], instr=route_info[1], dir_data=route_info[2], dir_duration=route_info[3],
             address=address,
-            # test_sites_1=test_sites[0], test_sites_2=test_sites[1], test_sites_3=test_sites[2],
-            mapbox_token=MAPBOX_TOKEN)
+            mapbox_token=MAPBOX_TOKEN
+            )
     )
     logging.warning(html_map)
+
 
     html_response = f"""
     <div style='float:left;'>
@@ -154,8 +161,9 @@ def distance_from(lng, lat):
 
 def get_current_time():
     """Retrieves the current time"""
-    curr_time = datetime.now().strftime("%B %d, %Y %I:%M %p")
-    return curr_time
+    curr_time_utc = datetime.utcnow().replace(tzinfo=timezone.utc)
+    curr_time_est = curr_time_utc.astimezone(timezone(timedelta(hours=-5))).strftime("%B %d, %Y %I:%M %p")
+    return curr_time_est
 
 
 def get_direction(ori_lng, ori_lat, dest_lng, dest_lat):
@@ -169,27 +177,44 @@ def get_direction(ori_lng, ori_lat, dest_lng, dest_lat):
             "alternatives": "false",
         },
     )
+    return directions_resp
 
-    dir_duration = directions_resp.json()["routes"][0]['duration']
-    dir_data = pd.DataFrame(directions_resp.json()["routes"][0]["legs"])
 
+def get_route(directions_resp):
+    """Tidy the returned values from MapBox Directions API"""
+    dir_duration = directions_resp["routes"][0]['duration']
+    dir_data = pd.DataFrame(directions_resp["routes"][0]["legs"])
     dir_data = dir_data.iloc[:1].to_json()
 
     instruction=[]
-    for step in directions_resp.json()['routes'][0]['legs'][0]['steps']:
+    for step in directions_resp['routes'][0]['legs'][0]['steps']:
         instruction.append(f"{step['maneuver']['instruction']}")
     listToStr = '<br>'.join(map(str, instruction))
 
     routes = gpd.GeoDataFrame(
         geometry=[
-            shape(directions_resp.json()["routes"][idx]["geometry"])
-            for idx in range(len(directions_resp.json()["routes"]))
+            shape(directions_resp["routes"][idx]["geometry"])
+            for idx in range(len(directions_resp["routes"]))
         ]
     )   
-
     geojson_str = routes.iloc[:1].to_json()
 
     return geojson_str, listToStr, dir_data, dir_duration
+
+
+def get_national_covid_stats(time_input):
+    """Get Covid Statistics for U.S"""
+    query = text(
+        """
+        SELECT sum(tot_cases) as tc, sum(tot_death) as td
+        FROM state_covid_tests_by_1220
+        WHERE submission_date = :time_query
+        """
+        )
+    resp = engine.execute(query, time_query=time_input).fetchone()
+    cases = resp['tc']
+    death = resp['td']
+    return cases, death
 
 
 def get_zip_covid(lng, lat, error_message):
@@ -218,7 +243,6 @@ def get_zip_covid(lng, lat, error_message):
         num_pos_per = 'unavailable'
         zip_code = 'Not Found'
         error_m = "Sorry, we cannot retrieve the covid information assoicated with your entered address in Philadelphia.  IS IT IN PHILADELPHIA? Please try another one."
-    
     return num_pos_per, zip_code, error_m
 
 
@@ -230,8 +254,10 @@ def get_nearby_test_sites(lng, lat):
             c.testing_location_nameoperator as site_name, 
             c.testing_location_address as address,
             ST_Distance(ST_SetSRID(ST_MakePoint(c.lng, c.lat), 4326)::geography, ST_SetSRID(ST_MakePoint(:lng, :lat), 4326)::geography)::integer as dist_m,
-            ST_SetSRID(ST_MakePoint(c.lng, c.lat), 4326)::geography as geom
+            ST_SetSRID(ST_MakePoint(c.lng, c.lat), 4326)::geography as geom,
+            c.provider_url
         FROM covid_testing_sites_phl as c
+        WHERE c.provider_url is not NULL
         ORDER BY dist_m
         LIMIT 4
     """
