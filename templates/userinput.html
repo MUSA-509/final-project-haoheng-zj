@@ -1,0 +1,50 @@
+<!-- <form action="{{ url_for('dest_info') }}" onsubmit="return sumbit_sure()" method="get" > -->
+  <form action="{{ url_for('dest_info') }}" method="get" >
+  <div>
+    <label style="color: #f4f4f4" for="address_text">Enter your destination address/name </br>(Note: Please use PHILADELPHIA-BASED locations for the best user experience) </label>
+    <input type="text" class="u-full-width" name="address_text" id="your-name" style="width: 100%;">
+      <div>
+        <label style="color: #f4f4f4" for="pre-selected-addresses">Or... select one of the following</label>
+        <select name="address_dropdown" id="pre-selected-addresses" style="width: 100%;">
+          <option disabled selected value> -- select an option -- </option>
+          <option value="Meyerson Hall, University of Pennsylvania">Meyerson Hall, University of Pennsylvania</option>
+          <option value="Franklin Institute">Franklin Institute</option>
+          <option value="Drexel University">Drexel University</option>
+          <option value="Frankford Transportation Center">Frankford Transportation Center</option>
+          <option value="Pennsylvania Academy of the Fine Arts">Pennsylvania Academy of the Fine Arts</option>
+          <option value="Curtis Institute of Music">Curtis Institute of Music</option>
+          <option value="Temple University">Temple University</option>
+        </select>
+      </div>
+    </div>
+    <input type="submit" value="Submit" class="button-primary">
+    {% if request.endpoint == 'index' %}
+    <a href="{{ url_for('covid_state') }}" class="button">View Nation-wide COVID Info</a>
+    {% endif %}
+    {% if request.endpoint == 'dest_info' %}
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+    <a href="{{ url_for('covid_state') }}" class="button">View Nation-wide COVID Info</a>
+    {% endif %}
+    {% if request.endpoint == 'covid_state' %}
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+    {% endif %}
+    {% if request.endpoint == 'covid_county' %}
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+    {% endif %}
+    {% if request.endpoint == 'covid_zip' %}
+    <a href="{{ url_for('index') }}" class="button">Back to home</a>
+    {% endif %}
+<!--   <script language="javascript">
+    function sumbit_sure(){
+      var gnl=confirm("Press [OK] to view your destination info if you have already acknowledged the risk of trips.\n\nSTRONGLY RECOMMEND: View the current NATION-WIDE COVID INFO first.");
+      if (gnl==true){
+        return true;
+      }
+      else {
+        return false;
+      }
+    }
+  </script> -->
+</form>
+
+
