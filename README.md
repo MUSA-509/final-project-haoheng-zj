@@ -3,6 +3,7 @@
 Final Project — This is the final project repo for group of Haoheng Tang and ZJ Zhou.
 
 The project is live on http://usgoanywheremaskon-env.eba-pn88bgvn.us-east-1.elasticbeanstalk.com/ !
+
 Latest version for presentation: deployed Dec 22, 2020
 
 This web app is designed to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential parts:
