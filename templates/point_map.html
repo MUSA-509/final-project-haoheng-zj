@@ -54,6 +54,7 @@
     map.fitBounds(bounds, {
             padding: 150
         });
+
     map.on('load', function () {
         map.addSource('route', {
             'type': 'geojson',
@@ -75,7 +76,6 @@
     });
     address="{{ address|safe }}"
     instr="{{ instr|safe }}";
-    // start_place="{{start_place}}";
     dir_duration={{ dir_duration|safe }};
     var instructions = document.getElementById('instructions');
     instructions.innerHTML = '<br><span class="duration"><strong>Trip duration: ' + Math.floor(dir_duration / 60) + ' min </strong>'+' 🚗 </span></br>' + '</br>From Philadelphia City Hall to '+'<mark>'+address+'</mark></br>' + instr
