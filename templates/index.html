@@ -36,7 +36,7 @@
 
         <h1 style='color: #f4f4f4'><b>
           <image src='./static/images/head-side-mask-solid2.svg' style="display:inline-flex;width:70px;height:45px; margin-top: 40px; color: #f4f4f4">U.S.GOAnywhereMaskON</image></b></h1>
-        <p style='color: #f4f4f4'><b><font size="4">A Philadelphia-adapted Miniature Version</font></b></br><i>(local info. available for Philadelphia Addresses ONLY)</i></p>
+        <p style='color: #f4f4f4'><b><font size="4">A Philadelphia-adapted Miniature Version</font></b></br></p>
       </div>
     </div>
   </div>
@@ -47,14 +47,14 @@
           {% include 'userinput.html' %}
         </div>
         <div class="Two columns">
-          <p  style='color: #f4f4f4'><strong>As of 2020/12/15, at least <strong><font size="6"color="#f47983">308,000</font></strong> people have died from coronavirus in the U.S.</br>
-            At least <strong><font size="6"color="9370DB">16,800,000</font></strong> cases have been reported. Wear Your Mask Once You Leave Your Home!</strong></p>
+          <p  style='color: #f4f4f4'><strong>As of 2020/12/20, at least <strong><font size="6"color="#f47983">{{ tot_death }}</font></strong> people have died from coronavirus in the U.S.</br>
+            At least <strong><font size="6"color="EE82EE">{{ tot_cases }}</font></strong> cases have been reported. Check "View National-wide COVID Info" for more information!</strong></p>
             <hr>
             <p  style='color: #f4f4f4'>
               This web app is designed to provide users with a COVID-19 special version of "Google Map" OR "Mapbox," with two essential parts:
             <ul style='color: #f4f4f4'>
-                <li>User-interactive covid-19 cases visualization at state/county scales (Via Button: "VIEW NATION-WIDE COVID INFO")</li>
-                <li>Destination info (covid, testing sites, navigation, etc.) per user-specified loc (Per user input and Button: "SUBMIT")</li>
+                <li>User-interactive covid-19 cases visualization at state/county/zipcode scales. </li>
+                <li>Destination info (covid, testing sites, navigation, etc.) per user-specified address. </li>
             </ul>
             </p>
             <p>
